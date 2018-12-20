@@ -8,15 +8,25 @@
 
   <script>
     // start with strings, numbers and booleans
+      let car = 'slow'
+      let car2 = car
+      console.log(car, car2)
 
+      car = 'race'
+      console.log(car, car2)
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
-
+      let team = players
+      console.log(players, team)
     // You might think we can just do something like this:
-
+      // team[3] = 'hufflepuff'
     // however what happens when we update that array?
+
+      console.log(players, team)
+
+    //updating array on reference changes orriginal array!!!! ^^^^^^^^
 
     // now here is the problem!
 
@@ -25,15 +35,23 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
-
+      let team2 = players.slice()
     // one way
+      team[3] = 'hufflepuff'
 
+      console.log(players, team2)
     // or create a new array and concat the old one in
+      let team3 = [].concat(players)
 
     // or use the new ES6 Spread
-
+      let team4 = [...players]
     // now when we update it, the original one isn't changed
+      team4[1] = 'lions'
+      console.log(players, team4)
 
+      let team5 = Array.from(players)
+      team5[3] = 'monstArs'
+      console.log(players, team5)
     // The same thing goes for objects, let's say we have a person object
 
     // with Objects
@@ -43,12 +61,47 @@
     };
 
     // and think we make a copy:
-
+    const leader = person
+    leader.age = 12
+    console.log(leader)
     // how do we take a copy instead?
 
+    const myGuy = Object.assign({}, person)
+    myGuy.age = 33
+    myGuy.name = 'Star Fox'
+    console.log(person, myGuy)
+
+    const yourGuy = Object.assign({}, person, {name: 'pika', age: 77})
+
+    console.log(person, yourGuy)
     // We will hopefully soon see the object ...spread
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    const ian = {
+      name: 'ian',
+      age: 9000,
+      looks: {
+        height: 88,
+        looks: 'ok'
+      }
+    }
+    console.clear()
+    console.log(ian)
+
+    const dev = Object.assign({}, ian)
+    // shallow copy of nested items!
+
+    // dev.looks.height = 1
+
+    console.log(dev, ian)
+
+    // do this for deep copy of nested obj
+
+    const dev2 = JSON.parse(JSON.stringify(ian))
+    dev2.looks.height = 1
+
+    console.log(dev2, ian)
 
   </script>
 
