@@ -23,12 +23,18 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <form>
+    <button type="button" value="Check All" id="checkEm" onclick="checkAll()">Check All</button>
+    <button type="button" value="Uncheck All" id="unCheckEm" onclick="unCheckAll()" >Uncheck All</button>
+    </form>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = JSON.parse(localStorage.getItem('items')) || [];
+  // const checkAll = document.getElementById('checkAll')
+  // const unCheckAll = document.getElementById('uncheckAll')
 
   function addItem(e){
     e.preventDefault()
@@ -41,6 +47,20 @@
     populateList(items, itemsList)
     localStorage.setItem('items', JSON.stringify(items))
     this.reset()
+  }
+  function checkAll(){
+    items.forEach(element => {
+      element.done = true
+    });
+    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, itemsList)
+  }
+  function unCheckAll(){
+    items.forEach(element => {
+      element.done = false
+    });
+    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, itemsList)
   }
 
   function populateList(plates = [], platesList){
@@ -62,6 +82,8 @@
     localStorage.setItem('items', JSON.stringify(items))
     populateList(items, itemsList)
   }
+
+
 
   addItems.addEventListener('submit', addItem)
   itemsList.addEventListener('click', toggleDone)
