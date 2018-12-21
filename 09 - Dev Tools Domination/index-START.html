@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+      console.log('hello')
+    // Interpolated
+    console.log('hello, I am a %s string!', 'taco')
+    // Styled
+    console.log('%c I am a taco!', 'font-size: 22px; color: yellow')
+    // warning!
+    console.warn('Abort!')
+    // Error :|
+    console.error('illegal activity!')
+    // Info
+    console.info('tacos eat 4-5 people per week')
+    // Testing
+    const p = document.querySelector('p')
+    console.assert('1===1', 'thats false man!')
+    // clearing
+    // console.clear()
+    // Viewing DOM Elements
+      console.dir(p) // tells you everything that lives on that element
+    // Grouping together
+
+    // console.collapse()
+      dogs.forEach(dog => {
+        console.group(`${dog.name}`)
+        console.log(`this is ${dog.name}`)
+        console.log(`this is ${dog.age} years old`)
+        console.log(`this is ${dog.age*7} in dog years`)
+        console.groupEnd(`${dog.name}`)
+      })
+    // counting
+      console.count('taco')
+      console.count('taco')
+      console.count('cat')
+      console.count('taco')
+      console.count('taco')
+      console.count('cat')
+      console.count('taco')
+    // timing
+
+    console.time('fetching data')
+
+    fetch('https://api.github.com/users/rollaflip')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data')
+        console.log(data)
+      })
+
+      console.table(dogs)
+
+  </script>
+</body>
+</html>
