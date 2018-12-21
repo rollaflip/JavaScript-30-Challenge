@@ -24,8 +24,10 @@
       <input type="submit" value="+ Add Item">
     </form>
     <form>
-    <button type="button" value="Check All" id="checkEm" onclick="checkAll()">Check All</button>
-    <button type="button" value="Uncheck All" id="unCheckEm" onclick="unCheckAll()" >Uncheck All</button>
+    <!-- <button type="button" value="Check All" id="checkEmAll" onclick="checkAll()">Check All</button>
+    <button type="button" value="Uncheck All" id="unCheckEmAll" onclick="unCheckAll()" >Uncheck All</button> -->
+    <button type="button" value="Check All" id="checkEmAll" >Check All</button>
+    <button type="button" value="Uncheck All" id="unCheckEmAll" >Uncheck All</button>
     </form>
   </div>
 
@@ -33,8 +35,8 @@
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = JSON.parse(localStorage.getItem('items')) || [];
-  // const checkAll = document.getElementById('checkAll')
-  // const unCheckAll = document.getElementById('uncheckAll')
+  const checkEmAll = document.getElementById('checkEmAll')
+  const unCheckEmAll = document.getElementById('unCheckEmAll')
 
   function addItem(e){
     e.preventDefault()
@@ -48,7 +50,8 @@
     localStorage.setItem('items', JSON.stringify(items))
     this.reset()
   }
-  function checkAll(){
+  function checkAll(e){
+    console.log(e)
     items.forEach(element => {
       element.done = true
     });
@@ -58,6 +61,19 @@
   function unCheckAll(){
     items.forEach(element => {
       element.done = false
+    });
+    localStorage.setItem('items', JSON.stringify(items))
+    populateList(items, itemsList)
+  }
+
+  function massCheck(e){
+    // console.log(e.target.id)
+    let whichButton = true
+    whichButton =e.target.id === 'unCheckEmAll' ? false : true
+
+    console.log(whichButton)
+    items.forEach(element => {
+      element.done = whichButton
     });
     localStorage.setItem('items', JSON.stringify(items))
     populateList(items, itemsList)
@@ -87,6 +103,9 @@
 
   addItems.addEventListener('submit', addItem)
   itemsList.addEventListener('click', toggleDone)
+
+  unCheckEmAll.addEventListener('click', massCheck)
+  checkEmAll.addEventListener('click', massCheck)
 
   populateList(items, itemsList)
 </script>
