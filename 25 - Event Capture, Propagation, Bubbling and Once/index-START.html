@@ -46,9 +46,15 @@
 
   function logText(e){
     console.log(this.classList.value);
+    //e.stopPropagation(); // stop the bubbling!
 
   }
-  divs.forEach(div => div.addEventListener('click', logText));
+
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false,
+    once: true
+  }));
 
 </script>
 </body>
